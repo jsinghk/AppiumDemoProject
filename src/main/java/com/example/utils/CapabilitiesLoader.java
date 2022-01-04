@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static com.example.utils.PropertiesLoader.getProperty;
@@ -57,9 +59,8 @@ public class CapabilitiesLoader {
     }
 
     private void setAppPath(String app) {
-//        String appPath = Optional.ofNullable(this.getClass().getClassLoader().getResource("/app/" + app).getPath()).
-//                orElse(new RuntimeException("Specified app not present in location : /app/" + app).getLocalizedMessage());
-        String appPath = "/Users/jaspreetsingh/IdeaProjects/AppiumDemoProject/src/main/resources/app/" + app;
+        String appPath = Paths.get("src/main/resources/app").toAbsolutePath() + "/" + app;
+        log.info("Setting the app path : " + appPath);
         jsonMap.put("app", appPath);
     }
 
