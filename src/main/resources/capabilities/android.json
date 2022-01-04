@@ -1,0 +1,7 @@
+{
+  "deviceName": "Android Emulator",
+  "udid": "emulator-5554",
+  "app": "swagLabs.apk",
+  "autoGrantPermissions": "true",
+  "newCommandTimeout": "60"
+}

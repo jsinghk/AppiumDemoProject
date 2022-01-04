@@ -1,0 +1,9 @@
+{
+  "platformName": "ios",
+  "platformVersion": "15.2",
+  "deviceName": "iPhone 13",
+  "udid": "041BA512-5D3A-42C9-85AB-980064BD7C4E",
+  "app": "swagLabs/swagLabs.app",
+  "newCommandTimeout": "60",
+  "automationName": "XCUITest"
+}
