@@ -1,6 +1,7 @@
 package com.example;
 
 import com.example.basepackage.ScreenRegistry;
+import org.testng.annotations.AfterSuite;
 
 public abstract class BaseTestCase {
 
@@ -9,4 +10,5 @@ public abstract class BaseTestCase {
     protected BaseTestCase() {
         screenRegistry = ScreenRegistry.getInstance();
     }
+
 }

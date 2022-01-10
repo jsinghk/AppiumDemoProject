@@ -3,6 +3,7 @@ package com.example.basepackage;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.example.utils.CapabilitiesLoader;
+import com.example.webdriver.DriverProvider;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -21,10 +22,6 @@ public class ScreenRegistry {
     private Logger log = LoggerFactory.getLogger(this.getClass());
     private static ScreenRegistry instance;
     private Map<Class<?>, BaseScreen<?>> screens = new LinkedHashMap<>();
-    private CapabilitiesLoader capabilities = CapabilitiesLoader.getInstance();
-    private final String APPIUM_SERVER_HOST = getProperty("appium.server.host");
-    private final int APPIUM_SERVER_PORT = parseInt(getProperty("appium.server.port"));
-    private final String APPIUM_SERVER_PATH = getProperty("appium.server.path");
     WebDriver driver;
 
     public static ScreenRegistry getInstance() {
@@ -37,7 +34,8 @@ public class ScreenRegistry {
     public <T extends BaseScreen<?>> T getScreen(Class<T> screenClass) {
         if (!WebDriverRunner.hasWebDriverStarted()) {
             screens.clear();
-            setWebDriver();
+            driver = DriverProvider.provideDriver();
+            WebDriverRunner.setWebDriver(driver);
         }
         if (!Optional.ofNullable(screens.get(screenClass)).isPresent()) {
             screens.put(screenClass, Selenide.page(screenClass));
@@ -46,14 +44,12 @@ public class ScreenRegistry {
         return screenClass.cast(screens.get(screenClass));
     }
 
-    public void setWebDriver() {
-        try {
-            URL url = new URL("http", APPIUM_SERVER_HOST, APPIUM_SERVER_PORT, APPIUM_SERVER_PATH);
-            log.info("Setting the server url : " + url);
-            driver = new AppiumDriver<>(url, capabilities.setCapabilities());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+    public void quitSession() {
+        if (instance != null) {
+            log.info("Stopping the driver and service");
+            DriverProvider.closeWebDriver();
+        } else {
+            throw new RuntimeException("Session has not yet started");
         }
-        WebDriverRunner.setWebDriver(driver);
     }
 }

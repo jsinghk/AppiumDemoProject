@@ -21,5 +21,6 @@ public class LoginTest extends BaseTestCase {
                 .getScreenTitle();
 
         Assert.assertEquals(title,"PRODUCTS");
+        screenRegistry.quitSession();
     }
 }
