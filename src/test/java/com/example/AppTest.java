@@ -22,7 +22,6 @@ public class AppTest {
 
 
     WebDriver driver;
-    @BeforeClass
     public void setup(){
         DesiredCapabilities cap = CapabilitiesLoader.getInstance().setCapabilities();
         try {
@@ -33,7 +32,6 @@ public class AppTest {
         }
     }
 
-    @Test
     public void test() throws InterruptedException {
 //        driver.get("https://www.google.com");
         Thread.sleep(10000);
