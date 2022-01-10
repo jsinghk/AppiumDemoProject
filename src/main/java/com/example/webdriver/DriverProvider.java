@@ -49,6 +49,7 @@ public class DriverProvider {
                 driver = new WindowsDriver<MobileElement>(service, desiredCapabilities);
                 break;
             default:
+                service.stop();
                 throw new RuntimeException("Mobile Platform provided does not match any existing platform");
         }
     }
