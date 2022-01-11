@@ -3,11 +3,8 @@ package com.example.screens.youtube;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.example.basepackage.BaseScreen;
-import io.appium.java_client.MobileElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.remote.RemoteWebElement;
-
 import static com.codeborne.selenide.Selenide.$;
 import static com.example.utils.AdbCommandExecutor.playPauseVideo;
 import static com.example.utils.ScreenAction.scrollToElement;
@@ -37,6 +34,7 @@ public class SearchScreen extends BaseScreen<SearchScreen> {
         playPauseVideo();
         Selenide.sleep(5000);
         playPauseVideo();
+        Selenide.sleep(5000);
         return screen.getScreen(SearchScreen.class);
     }
 }

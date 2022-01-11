@@ -27,11 +27,10 @@ public class ScreenAction {
 
     public static void scrollToElement(String elementPath) {
         if (driver instanceof AndroidDriver) {
-            MobileElement element = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
+            driver.findElement(MobileBy.AndroidUIAutomator(
                     "new UiScrollable(new UiSelector().scrollable(true)).setMaxSearchSwipes(10)" +
                             ".scrollIntoView(new UiSelector().descriptionContains(\"" + elementPath + "\"))"));
         }
-
     }
 
     public static void tapElement(String element) {
