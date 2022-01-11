@@ -23,7 +23,8 @@ public class VideoTest extends BaseTestCase {
     public void validateVideoPlayAndPause(){
         screenRegistry.getScreen(SearchScreen.class)
                 .playVideo("Create First IOS Mobile Test")
-                .pauseAndPlayVideo();
+                .pauseAndPlayVideo()
+                .swipeVideoSliderToPosition("38","701","442","701");
     }
 
     @AfterClass
