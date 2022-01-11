@@ -1,7 +1,9 @@
 {
-  "deviceName": "Android Emulator",
-  "udid": "emulator-5554",
-  "app": "swagLabs.apk",
+  "deviceName": "Android Device",
+  "udid": "192.168.1.4:5555",
   "autoGrantPermissions": "true",
-  "newCommandTimeout": "60"
+  "newCommandTimeout": "60",
+  "automationName": "UiAutomator2",
+  "appPackage": "com.google.android.youtube",
+  "appActivity": "com.google.android.apps.youtube.app.watchwhile.WatchWhileActivity"
 }

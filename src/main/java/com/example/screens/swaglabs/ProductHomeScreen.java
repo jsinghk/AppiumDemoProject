@@ -1,4 +1,4 @@
-package com.example.screens;
+package com.example.screens.swaglabs;
 
 import com.codeborne.selenide.Condition;
 import com.example.basepackage.BaseScreen;

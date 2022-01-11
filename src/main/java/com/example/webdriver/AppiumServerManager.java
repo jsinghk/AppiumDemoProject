@@ -33,7 +33,8 @@ public class AppiumServerManager {
         service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
                 .usingAnyFreePort()
                 .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-                .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
+                .withArgument(GeneralServerFlag.LOG_LEVEL, "info")
+                .withArgument(GeneralServerFlag.RELAXED_SECURITY)
                 .withLogFile(new File("target/appium.log"))
                 .withStartUpTimeOut(60, TimeUnit.SECONDS));
 

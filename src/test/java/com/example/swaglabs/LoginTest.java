@@ -1,8 +1,9 @@
 package com.example.swaglabs;
 
 import com.example.BaseTestCase;
-import com.example.screens.LoginScreen;
+import com.example.screens.swaglabs.LoginScreen;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import static com.example.utils.PropertiesLoader.getProperty;
@@ -21,6 +22,10 @@ public class LoginTest extends BaseTestCase {
                 .getScreenTitle();
 
         Assert.assertEquals(title,"PRODUCTS");
+    }
+
+    @AfterClass
+    public void tearDown(){
         screenRegistry.quitSession();
     }
 }
