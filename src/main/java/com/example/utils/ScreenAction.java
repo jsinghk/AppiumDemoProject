@@ -9,6 +9,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.offset.ElementOption;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -36,6 +37,16 @@ public class ScreenAction {
     public static void tapElement(String element) {
         WebElement webElement = driver.findElement(By.xpath(element));
         TouchAction action = new TouchAction(driver);
-        action.tap(new TapOptions().withElement(new ElementOption().withElement(webElement))).perform();
+        action.tap(ElementOption.element(webElement)).perform();
+    }
+
+    public static void tapAtLocation(int coX, int coY) {
+        TouchAction action = new TouchAction(driver);
+        action.tap(PointOption.point(coX, coY)).perform();
+    }
+
+    public static void swipeToLocation(int startX, int startY, int endX, int endY) {
+        TouchAction action = new TouchAction(driver);
+        action.longPress(PointOption.point(startX, startY)).moveTo(PointOption.point(endX, endY)).release().perform();
     }
 }

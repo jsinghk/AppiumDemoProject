@@ -1,34 +1,61 @@
 package com.example.youtube;
 
-import com.codeborne.selenide.Selenide;
 import com.example.BaseTestCase;
 import com.example.screens.youtube.HomeScreen;
 import com.example.screens.youtube.SearchScreen;
+import com.example.screens.youtube.VideoPlayerScreen;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
+import static com.example.utils.PropertiesLoader.getProperty;
+
 public class VideoTest extends BaseTestCase {
 
-    @Test
-    public void validateVideoSearchAndScroll(){
-        String videoDescription = screenRegistry.getScreen(HomeScreen.class)
-                .searchVideo("ekam testvagrant")
-                .getVideoDescription("Create First IOS Mobile Test");
+    private final String VIDEO_SEARCH_STRING = getProperty("video.search.string");
+    private final String VIDEO_CONTENT_DESCRIPTION = getProperty("video.content.description");
 
-        Assert.assertTrue(videoDescription.contains("IOS Mobile Test"));
+    @Test
+    public void validateVideoSearchAndScroll() {
+        String videoDescription = screenRegistry.getScreen(HomeScreen.class)
+                .searchVideo(VIDEO_SEARCH_STRING)
+                .getVideoDescription(VIDEO_CONTENT_DESCRIPTION);
+
+        Assert.assertTrue(videoDescription.contains(VIDEO_CONTENT_DESCRIPTION));
     }
 
     @Test(dependsOnMethods = {"validateVideoSearchAndScroll"})
-    public void validateVideoPlayAndPause(){
+    public void validateVideoPlayAndPause() {
         screenRegistry.getScreen(SearchScreen.class)
-                .playVideo("Create First IOS Mobile Test")
-                .pauseAndPlayVideo()
-                .swipeVideoSliderToPosition("38","701","442","701");
+                .playVideo(VIDEO_CONTENT_DESCRIPTION)
+                .pauseOrPlayVideo()
+                .pauseOrPlayVideo();
+    }
+
+    @Test(dependsOnMethods = {"validateVideoPlayAndPause"})
+    public void validateForwardVideoWithSlider() {
+        screenRegistry.getScreen(VideoPlayerScreen.class)
+                .swipeVideoSliderToPosition(38, 701, 442, 701);
+    }
+
+    @Test(dependsOnMethods = {"validateForwardVideoWithSlider"})
+    public void validateMaximizeVideoOptions() {
+        screenRegistry.getScreen(VideoPlayerScreen.class)
+                .tapOnScreenToShowPlayerOptions()
+                .maximizeVideo()
+                .pauseOrPlayVideo()
+                .minimizeVideo();
+    }
+
+    @Test(dependsOnMethods = {"validateMaximizeVideoOptions"})
+    public void validateMaximizeAndMinimizeVideoByScreenRotation() {
+        screenRegistry.getScreen(VideoPlayerScreen.class)
+                .rotateScreen("1")
+                .rotateScreen("0");
     }
 
     @AfterClass
-    public void tearDown(){
+    public void tearDown() {
         screenRegistry.quitSession();
     }
 }
