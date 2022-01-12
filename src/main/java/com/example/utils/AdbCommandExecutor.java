@@ -65,4 +65,20 @@ public class AdbCommandExecutor {
         String info = (String) driver.executeScript("mobile:shell", scriptArgs);
         return info;
     }
+
+    public static String getAudioInfo(String grepArgument) {
+        scriptArgs = new LinkedHashMap<>();
+        scriptArgs.put("command", "dumpsys");
+        scriptArgs.put("args", Arrays.asList(new String[]{"audio", "|", "grep", grepArgument}));
+        String info = (String) driver.executeScript("mobile:shell", scriptArgs);
+        return info;
+    }
+
+    public static String getScreenOrientation(String grepArgument) {
+        scriptArgs = new LinkedHashMap<>();
+        scriptArgs.put("command", "dumpsys");
+        scriptArgs.put("args", Arrays.asList(new String[]{"input", "|", "grep", grepArgument}));
+        String info = (String) driver.executeScript("mobile:shell", scriptArgs);
+        return info;
+    }
 }

@@ -19,10 +19,10 @@ public class VideoPlayerScreen extends BaseScreen<VideoPlayerScreen> {
     }
 
     @Step
-    public int getVideoPlaybackState() {
-        String playbackStateInfo = getMediaSessionInfo("Playback").split("\\{")[1].split(",")[0];
-        int state = parseInt(playbackStateInfo.split("=")[1]);
-        return state;
+    public String getVideoPlaybackState(String playbackInfo) {
+        String playbackStateInfo = getMediaSessionInfo("PlaybackState").split("PlaybackState")[1];
+        String value = playbackStateInfo.split(playbackInfo + "=")[1].split(",")[0];
+        return value;
     }
 
     @Step
@@ -78,5 +78,12 @@ public class VideoPlayerScreen extends BaseScreen<VideoPlayerScreen> {
         changeOrientation(orientation);
         sleep(5000);
         return screen.getScreen(VideoPlayerScreen.class);
+    }
+
+    @Step
+    public int getScreenLayout() {
+        String screenOrientationInfo = getScreenOrientation("SurfaceOrientation");
+        int screenOrientation = parseInt(screenOrientationInfo.split(":")[1].trim());
+        return screenOrientation;
     }
 }
