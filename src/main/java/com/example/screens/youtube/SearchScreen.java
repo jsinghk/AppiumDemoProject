@@ -7,9 +7,7 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.sleep;
-import static com.example.utils.AdbCommandExecutor.*;
 import static com.example.utils.ScreenAction.*;
-import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 
 public class SearchScreen extends BaseScreen<SearchScreen> {

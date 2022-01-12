@@ -13,7 +13,7 @@ public class AdbCommandExecutor {
     public static void executeKeyevent(String keyevent) {
         scriptArgs = new LinkedHashMap<>();
         scriptArgs.put("command", "input");
-        scriptArgs.put("args", Arrays.asList(new String[]{"keyevent", "85"}));
+        scriptArgs.put("args", Arrays.asList(new String[]{"keyevent", keyevent}));
         driver.executeScript("mobile:shell", scriptArgs);
     }
 
@@ -56,5 +56,13 @@ public class AdbCommandExecutor {
         scriptArgs.put("command", "settings");
         scriptArgs.put("args", Arrays.asList(new String[]{"put", "system", "accelerometer_rotation", enabled}));
         driver.executeScript("mobile:shell", scriptArgs);
+    }
+
+    public static String getMediaSessionInfo(String grepArgument) {
+        scriptArgs = new LinkedHashMap<>();
+        scriptArgs.put("command", "dumpsys");
+        scriptArgs.put("args", Arrays.asList(new String[]{"media_session", "|", "grep", grepArgument}));
+        String info = (String) driver.executeScript("mobile:shell", scriptArgs);
+        return info;
     }
 }

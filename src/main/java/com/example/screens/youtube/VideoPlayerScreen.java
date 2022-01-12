@@ -4,10 +4,10 @@ import com.example.basepackage.BaseScreen;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.sleep;
-import static com.example.utils.AdbCommandExecutor.changeOrientation;
-import static com.example.utils.AdbCommandExecutor.executeKeyevent;
+import static com.example.utils.AdbCommandExecutor.*;
 import static com.example.utils.ScreenAction.swipeToLocation;
 import static com.example.utils.ScreenAction.tapAtLocation;
+import static java.lang.Integer.parseInt;
 
 public class VideoPlayerScreen extends BaseScreen<VideoPlayerScreen> {
 
@@ -15,6 +15,29 @@ public class VideoPlayerScreen extends BaseScreen<VideoPlayerScreen> {
     public VideoPlayerScreen pauseOrPlayVideo() {
         executeKeyevent("85");
         sleep(5000);
+        return screen.getScreen(VideoPlayerScreen.class);
+    }
+
+    @Step
+    public int getVideoPlaybackState() {
+        String playbackStateInfo = getMediaSessionInfo("Playback").split("\\{")[1].split(",")[0];
+        int state = parseInt(playbackStateInfo.split("=")[1]);
+        return state;
+    }
+
+    @Step
+    public VideoPlayerScreen increaseVolume(int count) {
+        for (int i = 0; i < count; i++) {
+            executeKeyevent("24");
+        }
+        return screen.getScreen(VideoPlayerScreen.class);
+    }
+
+    @Step
+    public VideoPlayerScreen decreaseVolume(int count) {
+        for (int i = 0; i < count; i++) {
+            executeKeyevent("25");
+        }
         return screen.getScreen(VideoPlayerScreen.class);
     }
 

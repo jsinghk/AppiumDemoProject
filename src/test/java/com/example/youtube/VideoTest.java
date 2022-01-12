@@ -25,14 +25,24 @@ public class VideoTest extends BaseTestCase {
     }
 
     @Test(dependsOnMethods = {"validateVideoSearchAndScroll"})
-    public void validateVideoPlayAndPause() {
-        screenRegistry.getScreen(SearchScreen.class)
+    public void validateVideoPlay() {
+        int playbackState = screenRegistry.getScreen(SearchScreen.class)
                 .playVideo(VIDEO_CONTENT_DESCRIPTION)
-                .pauseOrPlayVideo()
-                .pauseOrPlayVideo();
+                .getVideoPlaybackState();
+
+        Assert.assertEquals(playbackState,3);
     }
 
-    @Test(dependsOnMethods = {"validateVideoPlayAndPause"})
+    @Test(dependsOnMethods = {"validateVideoPlay"})
+    public void validateVideoPause(){
+        int playbackState = screenRegistry.getScreen(VideoPlayerScreen.class)
+                .pauseOrPlayVideo()
+                .getVideoPlaybackState();
+
+        Assert.assertEquals(playbackState,2);
+    }
+
+    @Test(dependsOnMethods = {"validateVideoPause"})
     public void validateForwardVideoWithSlider() {
         screenRegistry.getScreen(VideoPlayerScreen.class)
                 .swipeVideoSliderToPosition(38, 701, 442, 701);
